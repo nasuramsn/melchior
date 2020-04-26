@@ -1,0 +1,64 @@
+version: '3'
+
+services:
+
+  db:
+    image: mariadb:10.1
+    container_name: melchior_mariadb
+    ports:
+      - 3306:3306
+    environment:
+      MYSQL_DATABASE: melchior
+      MYSQL_ROOT_USER: root
+      MYSQL_ROOT_PASSWORD: root
+      TZ: 'Asia/Tokyo'
+    volumes:
+      - ./db/data:/var/lib/mysql
+      - ./db/sql:/docker-entrypoint-initdb.d
+
+  vue:
+    container_name: melchior_vue
+    build:
+      context: .
+      dockerfile: src/Dockerfile
+    ports:
+      - 8080:8080
+    volumes:
+      - .:/app
+    tty: true
+    stdin_open: true
+    command: /bin/sh /app/start_vue.sh
+
+  python:
+    container_name: melchior_python
+    build:
+      context: .
+      dockerfile: app/Dockerfile
+    image: python_blog
+    volumes:
+      - .:/app
+      - ./static/admin:/static/admin
+    expose:
+      - "8001"
+    ports:
+      - "8001:8001"
+    command: /bin/sh /app/start_python.sh
+    depends_on:
+      - db
+
+  nginx:
+    image: nginx:1.17.9
+    container_name: melchior_nginx
+    build:
+      context: .
+      dockerfile: nginx/Dockerfile
+    ports:
+      - "8010:8010"
+    volumes:
+      - ./nginx/conf:/etc/nginx/conf.d
+      - ./nginx/uwsgi_params:/etc/nginx/uwsgi_params
+      - ./src/static:/var/www/static
+      - ./nginx/log:/var/log/nginx
+      - ./dist:/var/www/dist
+    depends_on:
+      - python
