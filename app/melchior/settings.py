@@ -38,7 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'melchiorapp',
+    'melchiorapp.apps.MelchiorappConfig',
 ]
 
 MIDDLEWARE = [
@@ -176,8 +176,9 @@ LOGGING = {
         },
         'file': {
             'class': 'logging.FileHandler',
-            'filename': '/app/app/melchior/log/django.log',  #環境に合わせて変更
-            'formatter': 'django.server',
+            'filename': '/app/app/melchior/log/django.log',  # 環境に合わせて変更
+            # 'formatter': 'django.server',
+            'formatter': 'verbose',
             'level': 'INFO',
         },
     },
