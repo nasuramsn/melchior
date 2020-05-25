@@ -18,3 +18,6 @@ RUN pip install mysqlclient==1.4.6
 RUN pip install Pillow==6.2.2
 RUN pip install uWSGI==2.0.18
 RUN pip install django-cors-headers==3.2.1
+RUN pip install flake8
+RUN pip install autopep8
+RUN pip install coverage

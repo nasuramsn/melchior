@@ -1,8 +1,15 @@
 .DS_Store
 node_modules
+app/.coverage
 app/melchior/__pycache__
 app/melchiorapp/__pycache__
+app/melchiorapp/consts/__pycache__
+app/melchiorapp/exceptions/__pycache__
+app/melchiorapp/messages/__pycache__
 app/melchiorapp/migrations/__pycache__
+app/melchiorapp/models/__pycache__
+app/melchiorapp/tests/__pycache__
+app/melchiorapp/tests/models/__pycache__
 dist
 
 # local env files
@@ -21,6 +28,8 @@ db/data/aria_log_control
 db/data/ib_logfile0
 db/data/ib_logfile1
 db/data/ibdata1
+db/data/melchior
+db/data/mysql
 db/data/tc.log
 
 # Editor directories and files
