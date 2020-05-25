@@ -20,3 +20,4 @@ RUN pip install uWSGI==2.0.18
 RUN pip install django-cors-headers==3.2.1
 RUN pip install flake8
 RUN pip install autopep8
+RUN pip install coverage
