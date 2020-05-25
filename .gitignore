@@ -1,9 +1,11 @@
 .DS_Store
 node_modules
+app/.coverage
 app/melchior/__pycache__
 app/melchiorapp/__pycache__
 app/melchiorapp/consts/__pycache__
 app/melchiorapp/exceptions/__pycache__
+app/melchiorapp/messages/__pycache__
 app/melchiorapp/migrations/__pycache__
 app/melchiorapp/models/__pycache__
 app/melchiorapp/tests/__pycache__
