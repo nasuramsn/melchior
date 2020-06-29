@@ -13,7 +13,9 @@ WORKDIR /app
 COPY package*.json ./
 
 RUN npm install -g npm && \
-    npm install -g @vue/cli
+    npm install -g @vue/cli && \
+    npm install vue-router && \
+    npm install vuex --save
 
 # 本番用にコードを作成している場合
 # RUN npm install --only=production
