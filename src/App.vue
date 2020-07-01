@@ -1,31 +1,25 @@
 <template>
-  <div id="app">
-    <GlobalHeader />
-    <router-view />
-    <GlobalFooter />
-  </div>
+  <v-app>
+    <v-content>
+      <GlobalHeader />
+      <router-view />
+      <GlobalFooter />
+    </v-content>
+  </v-app>
 </template>
 
 <script>
-import GlobalHeader from "./components/GlobalHeader";
 import GlobalFooter from "./components/GlobalFooter";
+import GlobalHeader from "./components/GlobalHeader";
 
 export default {
-  name: "app",
+  name: "App",
   components: {
-    GlobalHeader,
-    GlobalFooter
-  }
+    GlobalFooter,
+    GlobalHeader
+  },
+  data: () => ({
+    //
+  })
 };
 </script>
-
-<style>
-#app {
-  font-family: "Avenir", Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
-</style>

@@ -12,14 +12,15 @@ WORKDIR /app
 # 可能であれば (npm@5+)
 COPY package*.json ./
 
+# アプリケーションのソースをバンドルする
+COPY . WORKDIR
+
 RUN npm install -g npm && \
     npm install -g @vue/cli && \
-    npm install vue-router && \
-    npm install vuex --save
+    npm install vuex --save && \
+    yes | vue add router
 
 # 本番用にコードを作成している場合
 # RUN npm install --only=production
 
-# アプリケーションのソースをバンドルする
-COPY . WORKDIR
 # ADD start.sh /app/start.sh

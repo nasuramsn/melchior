@@ -1,13 +1,9 @@
 <template>
   <div class="globalfooter">
     <v-container>
-      <v-row>
-        <v-col cols="2"></v-col>
-        <v-col cols="10">
-          <div class="footer-title">Copy Right by Surnivers</div>
-        </v-col>
-        <v-col cols="2"></v-col>
-      </v-row>
+      <v-footer class="footer-back">
+        <div class="footer-title">(C) 2020 Surnivers</div>
+      </v-footer>
     </v-container>
   </div>
 </template>
@@ -19,9 +15,15 @@ export default {
 </script>
 
 <style scoped>
+.footer-back {
+  display: flex;
+  justify-content: center;
+  text-align: center;
+}
+
 .footer-title {
   font-family: "Courier New", Courier, monospace;
-  font-size: 16px;
-  color: blue;
+  font-size: 18px;
+  color: gray;
 }
 </style>
