@@ -1,0 +1,10 @@
+{
+    "ja": {
+        "screen": {
+            "manage_screen": "管理画面"
+        },
+        "message": {
+            "no_input": "%sが入力されていません"
+        }
+    }
+}

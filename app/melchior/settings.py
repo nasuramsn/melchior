@@ -25,7 +25,8 @@ SECRET_KEY = 'guw+4ij5b&k(99m4@(_u^m8vamkbo*3^t64!_peuqzno%63%y^'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ["localhost", "127.0.0.1", "172.20.0.4", "172.20.0.5"]
+ALLOWED_HOSTS = ["localhost", "127.0.0.1",
+                 "172.20.0.1", "172.20.0.4", "172.20.0.5"]
 
 
 # Application definition
@@ -38,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django_extensions',
     'melchiorapp.apps.MelchiorappConfig',
 ]
 
@@ -123,6 +125,7 @@ USE_L10N = True
 
 USE_TZ = True
 
+APPEND_SLASH = False
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
@@ -201,3 +204,9 @@ LOGGING = {
 }
 
 CORS_ORIGIN_ALLOW_ALL = True
+CORS_ALLOW_CREDENTIALS = True
+
+# 許可するオリジン
+CORS_ORIGIN_WHITELIST = [
+    'http://localhost:8080', 'http://localhost:8010',
+]

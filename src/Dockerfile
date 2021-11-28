@@ -18,7 +18,9 @@ COPY . WORKDIR
 RUN npm install -g npm && \
     npm install -g @vue/cli && \
     npm install vuex --save && \
-    yes | vue add router
+    yes | vue add router && \
+    npm install --save vue-i18n && \
+    npm install --save axios vue-axios
 
 # 本番用にコードを作成している場合
 # RUN npm install --only=production

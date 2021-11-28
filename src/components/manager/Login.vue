@@ -12,7 +12,7 @@
         <v-row>
           <v-col cols="2"></v-col>
           <v-col cols="5">
-            <v-text-field label="login" single-line></v-text-field>
+            <v-text-field v-model="loginId" label="login" single-line></v-text-field>
           </v-col>
           <v-col cols="5"></v-col>
         </v-row>
@@ -36,10 +36,10 @@
         <v-row>
           <v-col cols="2"></v-col>
           <v-col cols="2">
-            <v-btn color="success" dark>Login</v-btn>
+            <v-btn color="success" dark v-on:click="doLogin">Login</v-btn>
           </v-col>
           <v-col cols="2">
-            <v-btn color="primary" dark>Sign In</v-btn>
+            <v-btn color="primary" dark v-on:click="doCheckCsrf">Sign In</v-btn>
           </v-col>
           <v-col cols="6"></v-col>
         </v-row>
@@ -49,13 +49,18 @@
 </template>
 
 <script>
-import ScreenConsts from "../../consts/screen";
+// import ManagerServices from "../../services/manager";
+import { i18n } from "../../messages/login";
+
+import axios from "axios";
+// import settings from "../../consts/common";
 
 export default {
   name: "ManagerLogin",
   data() {
     return {
       show1: false,
+      loginId: "",
       password: "",
       rules: {
         required: value => !!value || "Required.",
@@ -66,7 +71,96 @@ export default {
     };
   },
   created: function() {
-    this.manage_screen = ScreenConsts.SCREEN_CONSTS.MANAGE_SCREEN;
+    this.manage_screen = i18n.tc("screen.manage_screen");
+  },
+  methods: {
+    doCheckCsrf: function() {
+      axios.defaults.xsrfHeaderName = "X-CSRFTOKEN";
+      axios.defaults.xsrfCookieName = "csrftoken";
+      axios.defaults.withCredentials = true;
+
+      let csrftoken = this.getCookie("csrftoken");
+      var headers = {
+        "Content-Type": "application/json",
+        // "X-Requested-With": "XMLHttpRequest",
+        "X-CSRFTOKEN": csrftoken
+      };
+
+      axios
+        .get(
+          "http://localhost:8010/melchior/api/manager/checkcsrf/",
+          {},
+          {
+            headers: headers
+          }
+        )
+        .then(res => {
+          alert(res);
+        })
+        .catch(err => {
+          alert(err);
+        });
+
+      return;
+    },
+    doLogin: function() {
+      // check loginId and password
+      if (this.loginId.length < 1) {
+        alert(i18n.tc("message.no_input"));
+        return;
+      } else if (this.password.length < 1) {
+        alert(i18n.tc("message.no_input"));
+        return;
+      } else {
+        // check CORS => this will do in vue.config.js
+        // do login
+        axios.defaults.xsrfHeaderName = "X-CSRFTOKEN";
+        axios.defaults.xsrfCookieName = "csrftoken";
+        axios.defaults.withCredentials = true;
+
+        let csrftoken = this.getCookie("csrftoken");
+        var headers = {
+          "Content-Type": "application/json",
+          "X-Requested-With": "XMLHttpRequest",
+          "X-CSRFTOKEN": csrftoken
+        };
+
+        let params = new URLSearchParams();
+        params.append("loginid", this.loginId);
+        params.append("password", this.password);
+
+        alert(this.getCookie("csrftoken"));
+
+        // ManagerServices.login(params)
+        axios
+          .post("http://localhost:8010/melchior/api/manager/login/", params, {
+            headers: headers
+          })
+          .then(res => {
+            alert(res);
+          })
+          .catch(err => {
+            alert(err);
+          });
+
+        return;
+      }
+    },
+    getCookie(data) {
+      var name = data + "=";
+      var decodedCookie = decodeURIComponent(document.cookie);
+      var ca = decodedCookie.split(";");
+      for (var i = 0; i < ca.length; i++) {
+        var c = ca[i];
+        while (c.charAt(0) == " ") {
+          c = c.substring(1);
+        }
+        if (c.indexOf(name) == 0) {
+          return c.substring(name.length, c.length);
+        }
+      }
+      return "";
+    }
   }
 };
 </script>
