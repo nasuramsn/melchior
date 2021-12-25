@@ -10,6 +10,7 @@ app/melchiorapp/migrations/__pycache__
 app/melchiorapp/models/__pycache__
 app/melchiorapp/tests/__pycache__
 app/melchiorapp/tests/models/__pycache__
+app/melchiorapp/views/__pycache__/
 dist
 
 # local env files
