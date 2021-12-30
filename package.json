@@ -5,27 +5,22 @@
   "description": "Node.js on Docker",
   "author": "Nasura Surnivers",
   "scripts": {
-    "serve": "vue-cli-service serve",
-    "build": "vue-cli-service build",
-    "lint": "vue-cli-service lint"
+    "dev": "next dev",
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
   },
   "dependencies": {
-    "core-js": "^3.6.5",
-    "vue": "^2.6.10",
-    "vuetify": "^2.0.0"
+    "axios": "^0.19.2",
+    "core-js": "^3.6.5"
   },
   "devDependencies": {
-    "@vue/cli-plugin-babel": "^3.10.0",
-    "@vue/cli-plugin-eslint": "^3.10.0",
-    "@vue/cli-service": "^4.3.1",
     "babel-eslint": "^10.0.1",
     "eslint": "^5.16.0",
     "eslint-plugin-vue": "^5.0.0",
     "sass": "^1.17.4",
-    "sass-loader": "^7.1.0",
-    "vue-cli-plugin-vuetify": "^0.6.3",
-    "vue-template-compiler": "^2.6.10",
-    "vuetify-loader": "^1.2.2"
+    "sass-loader": "^7.1.0"
   },
   "eslintConfig": {
     "root": true,

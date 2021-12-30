@@ -1,5 +1,4 @@
 .DS_Store
-node_modules
 app/.coverage
 app/melchior/__pycache__
 app/melchiorapp/__pycache__
@@ -10,7 +9,11 @@ app/melchiorapp/migrations/__pycache__
 app/melchiorapp/models/__pycache__
 app/melchiorapp/tests/__pycache__
 app/melchiorapp/tests/models/__pycache__
+app/melchiorapp/views/__pycache__/
 dist
+frontend/web-front/.next
+frontend/web-front/node_modules
+node_modules
 
 # local env files
 .env.local
@@ -40,3 +43,4 @@ db/data/tc.log
 *.njsproj
 *.sln
 *.sw?
+node_modules
