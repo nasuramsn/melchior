@@ -15,6 +15,9 @@ frontend/web-front/.next
 frontend/web-front/node_modules
 node_modules
 
+# directories
+.terraform/
+
 # local env files
 .env.local
 .env.*.local
