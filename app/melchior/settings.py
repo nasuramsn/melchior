@@ -72,24 +72,11 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'melchiorapp.wsgi.application'
-
 
 # Database
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'melchior',
-        'USER': 'root',
-        'PASSWORD': 'root',
-        'HOST': 'melchior_mariadb',
-        'PORT': '3306',
-        'OPTIONS': {
-            'charset': 'utf8mb4',
-        },
-    }
 }
 
 

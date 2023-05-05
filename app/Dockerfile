@@ -1,23 +1,21 @@
-FROM python:3.7.4
+FROM python:3.10.8
 
-# アプリケーションのソースをバンドルする
+
+WORKDIR /app
+
+RUN apt-get update && \
+    curl -sL https://deb.nodesource.com/setup_12.x | bash - && \
+    apt-get install -y nodejs && \
+    npm install -g npm@6.14.16 && \
+    npm install -g yarn
+
 COPY . /app
-# ADD start.sh /app/start.sh
 
-# The enviroment variable ensures that the python output is set straight
-# to the terminal with out buffering it first
 ENV PYTHONUNBUFFERED 1
-ENV PYTHONIOENCODING utf-8
 ENV APP_PATH  /app
 
-RUN pip install --upgrade pip
-RUN pip install Django==3.0.3
-RUN pip install flake8==3.7.9
-RUN pip install ipython==7.10.1
-RUN pip install mysqlclient==1.4.6
-RUN pip install Pillow==6.2.2
-RUN pip install uWSGI==2.0.18
-RUN pip install django-cors-headers==3.2.1
-RUN pip install flake8
-RUN pip install autopep8
-RUN pip install coverage
+RUN pip install --upgrade pip && \
+    echo ----------------------- the workdir src contains: && \
+    ls && \
+    echo ----------------------- Now installing requirements... && \
+    pip install -r ./app/requirements.txt
