@@ -1,4 +1,4 @@
-Django==3.1.14
+Django==3.2.25
 flake8==3.7.9
 ipython==7.16.3
 mysqlclient==1.4.6
