@@ -1,5 +1,5 @@
 CREATE DATABASE IF NOT EXISTS melchior CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
-CREATE USER IF NOT EXISTS 'root'@'%' IDENTIFIED BY 'root';
-GRANT ALL PRIVILEGES ON melchior.* TO 'root'@'%';
+CREATE USER IF NOT EXISTS 'melchior_user'@'%' IDENTIFIED BY 'rX@5#98nGR09';
+GRANT ALL PRIVILEGES ON melchior.* TO 'melchior_user'@'%';
 
 FLUSH PRIVILEGES;

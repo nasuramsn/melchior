@@ -23,17 +23,9 @@ node_modules
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
-app/melchior/log
-nginx/log
+logs
 
-db/data/aria_log.00000001
-db/data/aria_log_control
-db/data/ib_logfile0
-db/data/ib_logfile1
-db/data/ibdata1
-db/data/melchior
-db/data/mysql
-db/data/tc.log
+db/data/
 
 # Editor directories and files
 .idea
