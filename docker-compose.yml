@@ -3,25 +3,26 @@ version: '3'
 services:
 
   db:
-    image: mariadb:10.1
+    image: mariadb:11.4.2
     container_name: melchior_mariadb
     ports:
       - 3306:3306
     environment:
       MYSQL_DATABASE: melchior
-      MYSQL_ROOT_USER: root
-      MYSQL_ROOT_PASSWORD: root
+      MYSQL_ROOT_USER: melchior_user
+      MYSQL_ROOT_PASSWORD: rX@5#98nGR09
       TZ: 'Asia/Tokyo'
     volumes:
       - ./db/data:/var/lib/mysql
-      - ./db/sql:/docker-entrypoint-initdb.d
+    networks:
+      default:
+        ipv4_address: 192.168.10.10
 
-  python:
-    container_name: melchior_python
+  backend:
+    container_name: melchior_backend
     build:
       context: .
-      dockerfile: app/Dockerfile
-    image: python_blog
+      dockerfile: ./docker/django/Dockerfile
     volumes:
       - .:/app
       - ./static/admin:/static/admin
@@ -29,57 +30,51 @@ services:
       - "8001"
     ports:
       - "8001:8001"
-    command: /bin/sh /app/start_python.sh
+    command: python /app/app/manage.py runserver 0.0.0.0:8001
     depends_on:
       - db
+    networks:
+      default:
+        ipv4_address: 192.168.10.11
 
-  web-front:
-    image: node:16.13.1
+  frontend:
+    build:
+      context: .
+      dockerfile: ./docker/react/Dockerfile
     volumes:
       - ./frontend/web-front:/home/app/frontend
     ports:
       - 3000:3000
     working_dir: /home/app/frontend
-    command:
-      [
-        bash,
-        -c,
-        yarn upgrade --no-progress --network-timeout 1000000 && yarn run dev
-      ]
     networks:
-      - frontend_network
-
-  frontend-server:
-    container_name: nginx_frontend
-    build:
-      context: ./frontend/nginx/.
-      dockerfile: Dockerfile.dev
-    ports:
-      - "80:80"
-    depends_on:
-      - web-front
-    networks:
-      - frontend_network
+      default:
+        ipv4_address: 192.168.10.12
 
   nginx:
-    image: nginx:1.17.9
     container_name: melchior_nginx
     build:
       context: .
-      dockerfile: nginx/Dockerfile
+      dockerfile: ./docker/nginx/Dockerfile
     ports:
       - "8010:8010"
     volumes:
-      - ./nginx/conf:/etc/nginx/conf.d
-      - ./nginx/uwsgi_params:/etc/nginx/uwsgi_params
-      - ./src/static:/var/www/static
-      - ./nginx/log:/var/log/nginx
-      - ./dist:/var/www/dist
+      - ./docker/nginx/conf:/etc/nginx/conf.d
+      - ./logs/nginx:/var/log/nginx
+    volumes_from:
+      - backend
     depends_on:
-      - python
+      - backend
+      - frontend
+    networks:
+      default:
+        ipv4_address: 192.168.10.13
 
 networks:
-  frontend_network:
-    driver: bridge
+  default:
+    ipam:
+      driver: default
+      config:
+        - subnet: 192.168.10.0/24
+
 volumes:
   static_volume: null

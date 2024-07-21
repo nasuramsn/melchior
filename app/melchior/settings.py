@@ -39,7 +39,6 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'django_extensions',
     'melchiorapp.apps.MelchiorappConfig',
 ]
 
@@ -72,7 +71,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'melchiorapp.wsgi.application'
+# WSGI_APPLICATION = 'melchiorapp.wsgi.application'
 
 
 # Database
@@ -82,9 +81,9 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'melchior',
-        'USER': 'root',
-        'PASSWORD': 'root',
-        'HOST': 'melchior_mariadb',
+        'USER': 'melchior_user',
+        'PASSWORD': 'rX@5#98nGR09',
+        'HOST': 'db',
         'PORT': '3306',
         'OPTIONS': {
             'charset': 'utf8mb4',
@@ -179,7 +178,7 @@ LOGGING = {
         },
         'file': {
             'class': 'logging.FileHandler',
-            'filename': '/app/app/melchior/log/django.log',  # 環境に合わせて変更
+            'filename': '/app/logs/django/django.log',
             # 'formatter': 'django.server',
             'formatter': 'verbose',
             'level': 'INFO',
@@ -210,3 +209,5 @@ CORS_ALLOW_CREDENTIALS = True
 CORS_ORIGIN_WHITELIST = [
     'http://localhost:8080', 'http://localhost:8010',
 ]
+
+DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'
