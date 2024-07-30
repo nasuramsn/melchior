@@ -32,7 +32,9 @@ services:
       - "8001:8001"
     command: python /app/app/manage.py runserver 0.0.0.0:8001
     depends_on:
-      - db
+      db:
+        condition: service_started
+
     networks:
       default:
         ipv4_address: 192.168.10.11
@@ -63,8 +65,10 @@ services:
     volumes_from:
       - backend
     depends_on:
-      - backend
-      - frontend
+      backend:
+        condition: service_started
+      frontend:
+        condition: service_started
     networks:
       default:
         ipv4_address: 192.168.10.13
