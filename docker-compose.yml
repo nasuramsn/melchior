@@ -3,8 +3,8 @@ version: '3'
 services:
 
   db:
-    image: mariadb:11.4.2
-    container_name: melchior_mariadb
+    image: mariadb:11.2.4
+    container_name: melchior-mariadb
     ports:
       - 3306:3306
     environment:
@@ -14,12 +14,13 @@ services:
       TZ: 'Asia/Tokyo'
     volumes:
       - ./db/data:/var/lib/mysql
+    user: 999:999
     networks:
       default:
         ipv4_address: 192.168.10.10
 
   backend:
-    container_name: melchior_backend
+    container_name: melchior-backend
     build:
       context: .
       dockerfile: ./docker/django/Dockerfile
@@ -30,16 +31,15 @@ services:
       - "8001"
     ports:
       - "8001:8001"
-    command: python /app/app/manage.py runserver 0.0.0.0:8001
+    command: /bin/sh /app/docker/django/start_python.sh
     depends_on:
-      db:
-        condition: service_started
-
+      - db
     networks:
       default:
         ipv4_address: 192.168.10.11
 
   frontend:
+    container_name: melchior-frontend
     build:
       context: .
       dockerfile: ./docker/react/Dockerfile
@@ -53,7 +53,7 @@ services:
         ipv4_address: 192.168.10.12
 
   nginx:
-    container_name: melchior_nginx
+    container_name: melchior-nginx
     build:
       context: .
       dockerfile: ./docker/nginx/Dockerfile
@@ -61,14 +61,14 @@ services:
       - "8010:8010"
     volumes:
       - ./docker/nginx/conf:/etc/nginx/conf.d
+      - ./docker/nginx/uwsgi_params:/etc/nginx/uwsgi_params
       - ./logs/nginx:/var/log/nginx
+      - ./docker/nginx/uwsgi:/var/run/uwsgi
     volumes_from:
       - backend
     depends_on:
-      backend:
-        condition: service_started
-      frontend:
-        condition: service_started
+      - backend
+      - frontend
     networks:
       default:
         ipv4_address: 192.168.10.13
@@ -76,7 +76,7 @@ services:
 networks:
   default:
     ipam:
-      driver: default
+      driver: bridge
       config:
         - subnet: 192.168.10.0/24
 

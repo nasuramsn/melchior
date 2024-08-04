@@ -26,10 +26,11 @@ SECRET_KEY = 'guw+4ij5b&k(99m4@(_u^m8vamkbo*3^t64!_peuqzno%63%y^'
 DEBUG = False
 
 ALLOWED_HOSTS = ["localhost", "127.0.0.1",
-                 "172.20.0.1", "172.20.0.4", "172.20.0.5", "192.168.10.11"]
+                 "172.20.0.1", "172.20.0.4", "172.20.0.5", "192.168.10.1"]
 
 
 # Application definition
+wsgi_app = 'melchiorapp.wsgi:application'
 
 INSTALLED_APPS = [
     'corsheaders',
@@ -40,6 +41,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'melchiorapp.apps.MelchiorappConfig',
+    'django_extensions',
 ]
 
 MIDDLEWARE = [
@@ -71,7 +73,7 @@ TEMPLATES = [
     },
 ]
 
-# WSGI_APPLICATION = 'melchiorapp.wsgi.application'
+WSGI_APPLICATION = 'melchior.wsgi.application'
 
 
 # Database
