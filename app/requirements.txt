@@ -1,6 +1,6 @@
 Django==3.2.25
 flake8==3.7.9
-ipython==7.16.3
+ipython==8.10.0
 mysqlclient==1.4.6
 Pillow==10.3.0
 uWSGI==2.0.22
