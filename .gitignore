@@ -1,5 +1,6 @@
 .DS_Store
 app/.coverage
+app/__pycache__
 app/melchior/__pycache__
 app/melchiorapp/__pycache__
 app/melchiorapp/consts/__pycache__
@@ -24,8 +25,6 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 logs
-
-db/data/
 
 # Editor directories and files
 .idea

@@ -1,4 +1,4 @@
 sleep 5
-uwsgi --ini /app/app/uwsgi.ini
-sleep 5
-uwsgi --socket :8001 --wsgi-file /app/app/melchior/wsgi.py -b 65535
+# gunicorn -c /app/app/uwsgi.ini melchior.wsgi:application
+# gunicorn --access-logfile /app/logs/gunicorn/gunicorn.log --workers 3 --bind unix:/run/gunicorn.sock melchior.wsgi:application
+gunicorn --access-logfile /app/logs/gunicorn/gunicorn.log --workers 3 --bind 0.0.0.0:8001 melchior.wsgi:application
